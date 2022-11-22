@@ -1,52 +1,57 @@
-import React from 'react';
-import {HeaderArea} from './styled'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { HeaderArea } from "./styled";
+import { Link } from "react-router-dom";
 
-import { isLogged } from '../../../helpers/AuthHandler';
+import { isLogged, doLogout } from "../../../helpers/AuthHandler";
 
 export default function Header() {
-    let logged = isLogged()
+  let logged = isLogged();
 
- return (
+  const handleLogout = () => {
+    doLogout();
+    window.location.href = "/";
+  };
+
+  return (
     <HeaderArea>
-        <div className='container' >
-            <div className='logo' >
-                <Link to="/" >
-                    <span className='logo-1'>CA</span>
-                    <span className='logo-2'>TI</span>
-                    <span className='logo-3'>RA</span>
-                </Link>
-            </div>
-            <nav>
-                <ul>
-                    {logged &&
-                    <>
-                        <li>
-                            <Link to="">Minha Conta</Link>
-                        </li>
-                        <li>
-                            <Link to="">Sair</Link>
-                        </li>
-                        <li>
-                        <Link to="" className='button'>Postar anuncio</Link>
-                        </li>
-                    </>
-                    }
-                    {!logged &&
-                    <>
-                        <li>
-                            <Link to="">Login</Link>
-                        </li>
-                        <li>
-                            <Link to="">Cadastrar</Link>
-                        </li>
-                    </>
-                    }
-                    
-                    
-                </ul>
-            </nav>
+      <div className="container">
+        <div className="logo">
+          <Link to="/">
+            <span className="logo-1">CA</span>
+            <span className="logo-2">TI</span>
+            <span className="logo-3">RA</span>
+          </Link>
         </div>
+        <nav>
+          <ul>
+            {logged && (
+              <>
+                <li>
+                  <Link to="">Minha Conta</Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Sair</button>
+                </li>
+                <li>
+                  <Link to="/post-an-ad" className="button">
+                    Postar catira
+                  </Link>
+                </li>
+              </>
+            )}
+            {!logged && (
+              <>
+                <li>
+                  <Link to="/signin">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Cadastrar</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
+      </div>
     </HeaderArea>
- );
+  );
 }
