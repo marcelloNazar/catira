@@ -17,11 +17,11 @@ export const Item = styled.div`
       background-color: #eee;
     }
 
-    .itemImage img {
-      width: 100%;
+    .image img {
+      width: 33%;
       border-radius: 5px;
     }
-    itemName {
+    .itemName {
       font-weight: bold;
     }
   }

@@ -11,13 +11,13 @@ export default function AdItem(props) {
   }
 
   return (
-    <Item>
+    <Item className="aditem">
       <Link to={`/ad/${props.data.id}`}>
-        <div className="'itemImage">
+        <div className="'image">
           <img src={props.data.image} alt="" />
-          <div className="itemName">{props.data.title}</div>
-          <div className="'itemPrice">{price}</div>
         </div>
+        <div className="itemName">{props.data.title}</div>
+        <div className="'itemPrice">{price}</div>
       </Link>
     </Item>
   );

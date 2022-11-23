@@ -51,7 +51,7 @@ export const SearchArea = styled.div`
     margin-top: 20px;
 
     .categoryItem {
-      width: 25%;
+      width: 20%;
       display: flex;
       align-items: center;
       color: #000;
@@ -80,8 +80,8 @@ export const PageArea = styled.div`
     display: flex;
     flex-wrap: wrap;
 
-    .Aditem {
-      width: 25%;
+    .AdItem {
+      width: 25px;
     }
   }
   .seeAllLink {

@@ -3,6 +3,27 @@ import qs from "qs";
 
 const BASEAPI = "http://localhost:5000";
 
+const apiFetchFile = async (endpoint, body) => {
+  if (!body.token) {
+    let token = Cookies.get("token");
+    if (token) {
+      body.append("token", token);
+    }
+  }
+
+  const res = await fetch(BASEAPI + endpoint, {
+    method: "POST",
+    body,
+  });
+  const json = await res.json();
+
+  if (json.notallawed) {
+    window.location.href = "/signin";
+    return;
+  }
+  return json;
+};
+
 const apiFetchPost = async (endpoint, body) => {
   if (!body.token) {
     let token = Cookies.get("token");
@@ -76,8 +97,14 @@ const API = {
     const json = await apiFetchGet("/ad/list", options);
     return json;
   },
+
   getAd: async (id, other = false) => {
     const json = await apiFetchGet("/ad/item", { id, other });
+    return json;
+  },
+
+  addAd: async (fData) => {
+    const json = await apiFetchFile("/ad/add", fData);
     return json;
   },
 };

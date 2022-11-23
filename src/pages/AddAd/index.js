@@ -10,11 +10,14 @@ import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function SignIn() {
   const api = API();
 
   const fileField = useRef();
+
+  const history = useHistory();
 
   const [categories, setCategories] = useState([]);
 
@@ -40,14 +43,42 @@ export default function SignIn() {
     setDisabled(true);
     setError("");
 
-    /* const json = await api.login(email, password);
+    let errors = [];
 
-    if (json.error) {
-      setError(json.error);
+    if (!title.trim()) {
+      errors.push("Sem titulo");
+    }
+
+    if (!category) {
+      errors.push("Sem categoria");
+    }
+
+    if (errors.length === 0) {
+      const fData = new FormData();
+      fData.append("title", title);
+      fData.append("price", price);
+      fData.append("priceneg", priceNegotiable);
+      fData.append("desc", desc);
+      fData.append("cat", category);
+
+      if (fileField.current.files.length > 0) {
+        for (let i = 0; i < fileField.current.files.length; i++) {
+          fData.append("img", fileField.current.files[i]);
+        }
+      }
+
+      const json = await api.addAd(fData);
+
+      if (!json.error) {
+        history.push(`/ad/${json.id}`);
+        return;
+      } else {
+        setError(json.error);
+      }
     } else {
-      doLogin(json.token, remember);
-      window.location.href = "/";
-    }*/
+      setError(errors.join("\n"));
+    }
+
     setDisabled(false);
   };
 
@@ -70,7 +101,7 @@ export default function SignIn() {
             <div className="area-title">Titulo</div>
             <div className="area-input">
               <input
-                type="email"
+                type="text"
                 disabled={disabled}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
