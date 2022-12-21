@@ -32,7 +32,7 @@ export const PageArea = styled.div`
       height: 320px;
       margin-right: 20px;
 
-      .slide img {
+      .image img {
         display: flex;
         align-items: center;
         justify-content: center;

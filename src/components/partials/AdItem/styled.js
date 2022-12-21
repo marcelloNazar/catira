@@ -12,14 +12,15 @@ export const Item = styled.div`
     background-color: #fff;
     transition: all ease 0.1s;
 
+    .image img {
+      flex: 1;
+      width: 100%;
+      border-radius: 5px;
+    }
+
     &:hover {
       border: 1px solid #777;
       background-color: #eee;
-    }
-
-    .image img {
-      width: 33%;
-      border-radius: 5px;
     }
     .itemName {
       font-weight: bold;

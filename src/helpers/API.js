@@ -25,31 +25,31 @@ const apiFetchFile = async (endpoint, body) => {
 };
 
 const apiFetchPost = async (endpoint, body) => {
-  if (!body.token) {
+  if (!body.token) { //se nao tiver token no body pega um token 
     let token = Cookies.get("token");
     if (token) {
-      body.token = token;
+      body.token = token; // se tiver um token adiciona ele 
     }
   }
 
-  const res = await fetch(BASEAPI + endpoint, {
-    method: "POST",
+  const res = await fetch(BASEAPI + endpoint, {  // encontra a base da api mais o end point
+    method: "POST", // configuração 
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: "application/json", //aceitar
+      "Content-Type": "application/json", //tipo de conteudo
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(body),// manda o body que recebeu em forma de json
   });
-  const json = await res.json();
+  const json = await res.json(); // espera a resposta do res . json
 
   if (json.notallawed) {
-    window.location.href = "/signin";
+    window.location.href = "/signin"; // se tiver o nao logado manda para o sign in e retorna
     return;
-  }
-  return json;
+  } 
+  return json; // retorna 
 };
 
-const apiFetchGet = async (endpoint, body = []) => {
+const apiFetchGet = async (endpoint, body = []) => { //recebe o endpoint e o body que vem da pagina 
   if (!body.token) {
     let token = Cookies.get("token");
     if (token) {
@@ -57,8 +57,8 @@ const apiFetchGet = async (endpoint, body = []) => {
     }
   }
 
-  const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`);
-  const json = await res.json();
+  const res = await fetch(`${BASEAPI + endpoint}?${qs.stringify(body)}`); // get sao feitas na url entao colocamos o endpoint e envia o body como query string 
+  const json = await res.json(); // é enviada a url e espera a resposta
 
   if (json.notallawed) {
     window.location.href = "/signin";
@@ -68,14 +68,14 @@ const apiFetchGet = async (endpoint, body = []) => {
 };
 
 const API = {
-  login: async (email, password) => {
-    const json = await apiFetchPost("/user/signin", { email, password });
+  login: async (email, password) => { // recebe o email e a senha da pagina de login
+    const json = await apiFetchPost("/user/signin", { email, password }); //envia a rota e o email e a senha para a funsao post
 
-    return json;
+    return json; // retorna o json para o sign in
   },
 
   register: async (name, email, password, stateLoc) => {
-    const json = await apiFetchPost("/user/signup", {
+    const json = await apiFetchPost("/user/signup", {// manda o endpoint e o obj com tudo que foi recebido
       name,
       email,
       password,
@@ -85,8 +85,8 @@ const API = {
   },
 
   getStates: async () => {
-    const json = await apiFetchGet("/states");
-    return json.states;
+    const json = await apiFetchGet("/states"); // get apenas pega informaçao de alguma rota e retorna
+    return json.states; 
   },
   getCategories: async () => {
     const json = await apiFetchGet("/categories");
@@ -99,12 +99,12 @@ const API = {
   },
 
   getAd: async (id, other = false) => {
-    const json = await apiFetchGet("/ad/item", { id, other });
+    const json = await apiFetchGet("/ad/item", { id, other }); 
     return json;
   },
 
   addAd: async (fData) => {
-    const json = await apiFetchFile("/ad/add", fData);
+    const json = await apiFetchFile("/ad/add", fData); // 
     return json;
   },
 };

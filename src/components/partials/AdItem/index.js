@@ -14,7 +14,7 @@ export default function AdItem(props) {
     <Item className="aditem">
       <Link to={`/ad/${props.data.id}`}>
         <div className="'image">
-          <img src={props.data.image} alt="" />
+          <img src={props.data.image} alt="100%" width="100%" />
         </div>
         <div className="itemName">{props.data.title}</div>
         <div className="'itemPrice">{price}</div>

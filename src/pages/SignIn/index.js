@@ -11,10 +11,13 @@ import { doLogin } from "../../helpers/AuthHandler";
 export default function SignIn() {
   const api = API();
 
+
+  // states para salvar tudo do usuario
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false); // para desabilitar os campos 
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -22,13 +25,13 @@ export default function SignIn() {
     setDisabled(true);
     setError("");
 
-    const json = await api.login(email, password);
+    const json = await api.login(email, password); // manda o email e senha para a api 
 
-    if (json.error) {
-      setError(json.error);
+    if (json.error) { // caso tenha erro
+      setError(json.error); // seta ela
     } else {
-      doLogin(json.token, remember);
-      window.location.href = "/";
+      doLogin(json.token, remember); //pega o token da api e manda pra autenticação para salvar o cokkie
+      window.location.href = "/"; // manda pra home
     }
     setDisabled(false);
   };
@@ -37,7 +40,7 @@ export default function SignIn() {
     <PageContainer>
       <PageTitle>Login</PageTitle>
       <PageArea>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {error && <ErrorMessage>{error}</ErrorMessage>}   
 
         <form onSubmit={handleSubmit}>
           <label className="area">
@@ -45,7 +48,7 @@ export default function SignIn() {
             <div className="area-input">
               <input
                 type="email"
-                disabled={disabled}
+                disabled={disabled}  // colocando os campos no states
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

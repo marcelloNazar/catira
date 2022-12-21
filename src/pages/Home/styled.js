@@ -80,8 +80,10 @@ export const PageArea = styled.div`
     display: flex;
     flex-wrap: wrap;
 
-    .AdItem {
-      width: 25px;
+    .aditem {
+      width: 25%;
+      height: 25%;
+      
     }
   }
   .seeAllLink {

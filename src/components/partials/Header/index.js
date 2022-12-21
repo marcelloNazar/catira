@@ -9,7 +9,7 @@ export default function Header() {
 
   const handleLogout = () => {
     doLogout();
-    window.location.href = "/";
+    window.location.href = "/"; // faz logout e redireciona
   };
 
   return (

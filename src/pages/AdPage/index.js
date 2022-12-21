@@ -3,7 +3,7 @@ import { Fake, PageArea, OthersArea, BreadChumb } from "./styled";
 import { PageContainer } from "../../components/MainComponents";
 import API from "../../helpers/API";
 import { useParams, Link } from "react-router-dom";
-import { Slide } from "react-slideshow-image";
+import ImageGallery from "react-image-gallery";
 
 import AdItem from "../../components/partials/AdItem";
 
@@ -71,13 +71,9 @@ export default function SignIn() {
               {loading && <Fake heigth={300} />}
 
               {adInfo.images && (
-                <Slide>
-                  {adInfo.images.map((img, k) => {
-                    <div key={k} className="slide">
-                      <img src={img} alt="500" />
-                    </div>;
-                  })}
-                </Slide>
+                <div className="image">
+                  <img src={adInfo.images} />
+                </div>
               )}
             </div>
             <div className="adInfo">
